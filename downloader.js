@@ -2,10 +2,31 @@ const readline = require("readline-sync");
 const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+require("dotenv").config(); // Carrega as variáveis do .env
 
 // Pasta onde os vídeos serão salvos
 const downloadFolder = path.join(__dirname, "downloads");
 if (!fs.existsSync(downloadFolder)) fs.mkdirSync(downloadFolder);
+
+// Pergunta ao usuário se deseja usar o caminho local ou o ambiente global
+const useLocalPath =
+  readline
+    .question("Deseja usar o caminho local para o yt-dlp? (s/n): ")
+    .toLowerCase() === "s";
+
+// Caminho para o yt-dlp.exe
+let ytDlpPath;
+if (useLocalPath) {
+  // Usa o caminho do .env
+  ytDlpPath = process.env.YT_DLP_PATH;
+  if (!ytDlpPath) {
+    console.error("❌ Caminho do yt-dlp não encontrado no arquivo .env.");
+    process.exit(1);
+  }
+} else {
+  // Usa o yt-dlp do ambiente global
+  ytDlpPath = "yt-dlp";
+}
 
 // Solicita os links ao usuário
 const input = readline.question(
@@ -29,8 +50,7 @@ const downloadVideo = (url) => {
   console.log(`\n🔽 Baixando: ${url}`);
 
   // Comando para baixar o vídeo com o título original
-  // Tentando usar o yt-dlp diretamente se disponível
-  const command = `yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "${downloadFolder}/%(title)s.%(ext)s" "${url}"`;
+  const command = `"${ytDlpPath}" -f bestvideo+bestaudio --merge-output-format mp4 -o "${downloadFolder}/%(title)s.%(ext)s" "${url}"`;
 
   exec(command, (error, stdout, stderr) => {
     if (error) {
