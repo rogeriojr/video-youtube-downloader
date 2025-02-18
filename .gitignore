@@ -1,0 +1,23 @@
+# Ignora o arquivo .env
+.env
+
+# Ignora a pasta de downloads (se necessário)
+/downloads
+
+# Ignora node_modules (caso você use npm/yarn)
+node_modules/
+
+# Ignora logs e arquivos temporários
+*.log
+*.tmp
+
+# Ignora arquivos de configuração local
+*.local
+
+# Ignora arquivos de IDE/Editor
+.vscode/
+.idea/
+
+# Ignora arquivos de sistema
+.DS_Store
+Thumbs.db
