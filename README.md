@@ -10,6 +10,7 @@ salvando-os com o título original.
 - Baixa os vídeos na melhor qualidade disponível (vídeo + áudio combinados).
 - Salva os arquivos com o título original do vídeo.
 - Utiliza `yt-dlp` para o download.
+- Certifique de ter as váriaveis de ambiente configuradas
 
 ## 🚀 Instalação e Uso
 

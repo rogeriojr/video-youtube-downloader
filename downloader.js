@@ -29,6 +29,7 @@ const downloadVideo = (url) => {
   console.log(`\n🔽 Baixando: ${url}`);
 
   // Comando para baixar o vídeo com o título original
+  // Tentando usar o yt-dlp diretamente se disponível
   const command = `yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "${downloadFolder}/%(title)s.%(ext)s" "${url}"`;
 
   exec(command, (error, stdout, stderr) => {
