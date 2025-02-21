@@ -49,8 +49,8 @@ if (videoURLs.length === 0) {
 const downloadVideo = (url) => {
   console.log(`\n🔽 Baixando: ${url}`);
 
-  // Comando para baixar o vídeo com o título original
-  const command = `"${ytDlpPath}" -f bestvideo+bestaudio --merge-output-format mp4 -o "${downloadFolder}/%(title)s.%(ext)s" "${url}"`;
+  // Comando corrigido para baixar áudio e vídeo juntos e fundi-los em MP4
+  const command = `"${ytDlpPath}" -f "bv*+ba/best" --merge-output-format mp4 -S res:1080 --no-warnings -o "${downloadFolder}/%(title)s.%(ext)s" "${url}"`;
 
   exec(command, (error, stdout, stderr) => {
     if (error) {
