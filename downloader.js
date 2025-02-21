@@ -49,8 +49,17 @@ if (videoURLs.length === 0) {
 const downloadVideo = (url) => {
   console.log(`\n🔽 Baixando: ${url}`);
 
-  // Comando corrigido para baixar áudio e vídeo juntos e fundi-los em MP4
-  const command = `"${ytDlpPath}" -f "bv*+ba" --merge-output-format mp4 --no-warnings -o "${downloadFolder}/%(title)s.%(ext)s" "${url}"`;
+  // Caminho para o FFmpeg
+  const ffmpegPath = path.join(
+    __dirname,
+    "ffmpeg",
+    "ffmpeg-master-latest-win64-gpl-shared",
+    "bin",
+    "ffmpeg.exe"
+  );
+
+  // Comando corrigido para baixar vídeo e áudio juntos e fundi-los em MP4
+  const command = `"${ytDlpPath}" --ffmpeg-location "${ffmpegPath}" -f "bv*+ba/b" --remux-video mp4 --no-warnings -o "${downloadFolder}/%(title)s.%(ext)s" "${url}"`;
 
   exec(command, (error, stdout, stderr) => {
     if (error) {
