@@ -50,7 +50,7 @@ const downloadVideo = (url) => {
   console.log(`\n🔽 Baixando: ${url}`);
 
   // Comando corrigido para baixar áudio e vídeo juntos e fundi-los em MP4
-  const command = `"${ytDlpPath}" -f "bv*+ba/best" -S "res,ext:mp4" --merge-output-format mp4 -o "${downloadFolder}/%(title)s.%(ext)s" "${url}"`;
+  const command = `"${ytDlpPath}" -f "bv*+ba" --merge-output-format mp4 --no-warnings -o "${downloadFolder}/%(title)s.%(ext)s" "${url}"`;
 
   exec(command, (error, stdout, stderr) => {
     if (error) {
